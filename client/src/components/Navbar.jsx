@@ -1,21 +1,16 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
-        <div>
-            <div className="social-navbar navbar">
-                <div className="left-side">
-                    <p>123-456-7890</p>
-                    <p>GET FINANCING</p>
-                </div>
-                <div className="right-side">
-                <FontAwesomeIcon icon="fa-brands fa-facebook-f" />
-                <FontAwesomeIcon icon="fa-brands fa-twitter" />
-                </div>
+        <div className="navbar">
+            <Link to="/" className="right-nav"><img className="nav-logo"/></Link>
+            <div className="left-nav">
+                <Link to="/style" className="nav-element">Style</Link>
+                <a className="nav-element">Contact</a>
+                <Link to="/draw-my-fence" className="nav-element nav-btn">Draw Fence</Link>
             </div>
-            <div className="main-navbar navbar"></div>
         </div>
     )
-}
+}  
 
 export default Navbar;

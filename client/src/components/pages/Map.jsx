@@ -8,7 +8,6 @@ import useGeoLocation from "../../hooks/useGeoLocation.jsx";
 import MapIcon from "../../img/home.png";
 import HouseIcon from "../../img/home-house-silhouette-icon-building--public-domain-pictures--20.png";
 import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 
 
 const markerIcon = new L.Icon({

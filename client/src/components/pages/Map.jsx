@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";import { MapContainer, TileLayer, FeatureGroup, Marker } from "react-leaflet";
+import React, { useState, useRef, useEffect } from "react";import { MapContainer, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
@@ -7,8 +7,9 @@ import osm from "../../osm-providers.js";
 import useGeoLocation from "../../hooks/useGeoLocation.jsx";
 import MapIcon from "../../img/home.png";
 import HouseIcon from "../../img/home-house-silhouette-icon-building--public-domain-pictures--20.png";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setMap } from "../../actions.js";
 
 const markerIcon = new L.Icon({
   iconUrl: MapIcon,
@@ -31,7 +32,7 @@ const Map = () => {
   const [tileLayerUrlIndex, setTileLayerUrlIndex] = useState(0);
   const [buttonText, setButtonText] = useState("Remove Trees");
   const [polylineText, setPolylineText] = useState("");
-  const [capturedData, setCapturedData] = useState(""); 
+  const [capturedData, setCapturedData] = useState("");
 
   useEffect(() => {
     setHouseIcon(
@@ -129,6 +130,24 @@ const Map = () => {
     }
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const extractEventData = (event) => {
+    const textAreaValue = event.target.value;
+
+    return textAreaValue;
+  };
+
+  const handleSubmitData = (event) => {
+    event.preventDefault();
+    
+    const eventData = extractEventData(event);
+
+    dispatch(setMap(eventData));
+    navigate("/submit");
+  };
+
   return (
     <div className="map-div row">
       <div className="col text-center">
@@ -182,23 +201,24 @@ const Map = () => {
       <div className="row">
         <div className="col text-center">
           <div>
-            {/* <pre>{polylineText}</pre> */}
             <div className="input-row">
-              <form>
+              <form onSubmit={handleSubmitData}>
                 <textarea
                   rows="5"
                   cols="50"
                   className="next-submit"
-                  type="button"
                   value={polylineText}
-                  onClick={() => handleDataCapture({})}
-              />
-                <br/>
-                <br/>
+                  onChange={(e) => setPolylineText(e.target.value)} 
+                />
+                <br />
+                <br />
                 <div className="btn-pos">
-                <Link to="/submit">
-                  <input className="next-submit" type="submit" value="Submit" />
-                </Link>
+                  <input
+                    onClick={handleSubmitData}
+                    className="next-submit"
+                    type="submit"
+                    value="Submit"
+                  />
                 </div>
               </form>
             </div>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { connect, useDispatch } from 'react-redux';
+import { setResponse } from '../../actions.js';
 
 const types = [
   { value: "chainlink", label: "Chain Link" },
@@ -65,7 +67,7 @@ const colors = {
   ],
 };
 
-const Drawing = () => {
+const Drawing = ({setResponse}) => {
   const [selectedType, setSelectedType] = useState(null);
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [selectHeight, setSelectedHeight] = useState(null);
@@ -78,6 +80,14 @@ const Drawing = () => {
 
   const handleHeightChange = (selectedOption) => {
     setSelectedHeight(selectedOption);
+  };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const submitData = (e) => {
+    dispatch(setResponse(e.target.value)); 
+    navigate('/map');
   };
 
   return (
@@ -177,16 +187,15 @@ const Drawing = () => {
         />
         <br />
         <br />
-        <Link to="/map">
           <input
+          onClick={submitData}
             className="next-submit"
             type="button"
-            value="Capture Data and Go to Map"
+            value="submit"
           />
-        </Link>
       </form>
     </div>
   );
 };
 
-export default Drawing;
+export default connect(null, { setResponse })(Drawing);

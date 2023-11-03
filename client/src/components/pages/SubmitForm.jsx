@@ -1,16 +1,18 @@
-import { useLocation } from "react-router-dom";
+import { connect } from 'react-redux';
 
-const SubmitForm = () => {
-  const location = useLocation();
-  const { mapData } = location.state;
-
+const SubmitForm = (props) => {
   return (
     <div>
       <h1>Submitted Data</h1>
-      <p>Map Data: {mapData}</p>
+      <p>Response: {props.response}</p>
+      <p>Map: {props.map}</p>
     </div>
   );
 };
 
+const mapStateToProps = (state) => ({
+  response: state.response,
+  map: state.map,
+});
 
-export default SubmitForm;
+export default connect(mapStateToProps)(SubmitForm);

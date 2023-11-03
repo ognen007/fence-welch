@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";import { MapContainer, TileLayer, FeatureGroup } from "react-leaflet";
+import React, { useState, useRef, useEffect } from "react";
+import { MapContainer, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
@@ -7,9 +8,8 @@ import osm from "../../osm-providers.js";
 import useGeoLocation from "../../hooks/useGeoLocation.jsx";
 import MapIcon from "../../img/home.png";
 import HouseIcon from "../../img/home-house-silhouette-icon-building--public-domain-pictures--20.png";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { setMap } from "../../actions.js";
+import { useNavigate } from "react-router-dom";
+import { create } from 'zustand';
 
 const markerIcon = new L.Icon({
   iconUrl: MapIcon,
@@ -18,7 +18,7 @@ const markerIcon = new L.Icon({
   popupAnchor: [0, -46],
 });
 
-const houseIcon = new L.Icon({
+const initialHouseIcon  = new L.Icon({
   iconUrl: HouseIcon,
   iconSize: [40, 40],
 });
@@ -28,14 +28,18 @@ const Map = () => {
   const ZOOM_LEVEL = 18;
   const mapRef = useRef();
   const [polylines, setPolylines] = useState([]);
-  const [houseIcon, setHouseIcon] = useState(null);
+  const [housIcon, setHousIcon] = useState(null);
   const [tileLayerUrlIndex, setTileLayerUrlIndex] = useState(0);
   const [buttonText, setButtonText] = useState("Remove Trees");
-  const [polylineText, setPolylineText] = useState("");
-  const [capturedData, setCapturedData] = useState("");
+
+  // Define Zustand store for managing state
+  const useStore = create((set) => ({
+    polylineText: "",
+    setPolylineText: (newText) => set({ polylineText: newText }),
+  }));
 
   useEffect(() => {
-    setHouseIcon(
+    setHousIcon(
       new L.Icon({
         iconUrl: HouseIcon,
         iconSize: [40, 40],
@@ -81,8 +85,8 @@ const Map = () => {
         .map((coord) => `Lat: ${coord.lat}, Lng: ${coord.lng}`)
         .join("\n")}\n\n`;
 
-      // Append the formatted information to the state
-      setPolylineText((prevText) => prevText + formattedInfo);
+      // Append the formatted information to the Zustand state
+      useStore.setState({ polylineText: useStore.getState().polylineText + formattedInfo });
     }
 
     return e.layer.toGeoJSON();
@@ -130,7 +134,6 @@ const Map = () => {
     }
   };
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const extractEventData = (event) => {
@@ -141,10 +144,8 @@ const Map = () => {
 
   const handleSubmitData = (event) => {
     event.preventDefault();
-    
-    const eventData = extractEventData(event);
 
-    dispatch(setMap(eventData));
+    const eventData = extractEventData(event);
     navigate("/submit");
   };
 
@@ -165,7 +166,7 @@ const Map = () => {
                   rectangle: false,
                   circle: true,
                   circlemarker: true,
-                  marker: houseIcon,
+                  marker: initialHouseIcon,
                   polyline: true,
                   polygon: false,
                 }}
@@ -202,13 +203,13 @@ const Map = () => {
         <div className="col text-center">
           <div>
             <div className="input-row">
-              <form onSubmit={handleSubmitData}>
+            <form onSubmit={handleSubmitData}>
                 <textarea
                   rows="5"
                   cols="50"
                   className="next-submit"
-                  value={polylineText}
-                  onChange={(e) => setPolylineText(e.target.value)} 
+                  value={useStore.getState().polylineText}
+                  onChange={(e) => useStore.setState({ polylineText: e.target.value })} 
                 />
                 <br />
                 <br />

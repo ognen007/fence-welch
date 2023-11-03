@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { connect, useDispatch } from 'react-redux';
-import { setResponse } from '../../actions.js';
 
 const types = [
   { value: "chainlink", label: "Chain Link" },
@@ -81,12 +79,10 @@ const Drawing = ({setResponse}) => {
   const handleHeightChange = (selectedOption) => {
     setSelectedHeight(selectedOption);
   };
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const submitData = (e) => {
-    dispatch(setResponse(e.target.value)); 
+    const response = e.target.value
     navigate('/map');
   };
 
@@ -198,4 +194,4 @@ const Drawing = ({setResponse}) => {
   );
 };
 
-export default connect(null, { setResponse })(Drawing);
+export default Drawing;

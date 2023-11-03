@@ -1,18 +1,19 @@
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useStore } from 'zustand';
 
 const SubmitForm = (props) => {
+  const polylineText = useStore((state) => state.polylineText);
+  
+  useEffect(() => {
+    console.log('Map:', polylineText);
+  }, [polylineText]);
+
   return (
     <div>
       <h1>Submitted Data</h1>
-      <p>Response: {props.response}</p>
-      <p>Map: {props.map}</p>
+      <p>Map: {polylineText}</p>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  response: state.response,
-  map: state.map,
-});
-
-export default connect(mapStateToProps)(SubmitForm);
+export default SubmitForm;

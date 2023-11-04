@@ -1,5 +1,5 @@
 const People = () => {
-    const email = "example@example.com";
+    const email = "robbie@topnotchfence.com";
     return (
 <>
 <div className="background2" id="people">

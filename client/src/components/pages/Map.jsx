@@ -142,11 +142,11 @@ const Map = () => {
     return textAreaValue;
   };
 
-  const handleSubmitData = (event) => {
+  const handleSubmitData = async (event) => {
     event.preventDefault();
 
-    const eventData = extractEventData(event);
-    navigate("/submit");
+    const eventData = await extractEventData(event);
+    await navigate("/submit");
   };
 
   return (

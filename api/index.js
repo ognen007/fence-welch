@@ -1,9 +1,12 @@
-const express = require('express')
-const app = express()
+const express = require('express');
+const app = express();
 const bcrypt = require('bcrypt');
+const cors = require('cors');
+
 const PORT = 7777;
 
 app.use(express.json());
+app.use(cors());
 
 const saltRounds = 10;
 const originalPassword = "T$3qR#p9xZ";

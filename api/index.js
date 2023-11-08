@@ -1,34 +1,37 @@
-const express = require('express');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+
 const app = express();
-const bcrypt = require('bcrypt');
-const cors = require('cors');
+const port = 5000;
 
-const PORT = 7777;
-
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(cors());
 
-const saltRounds = 10;
-const originalPassword = "T$3qR#p9xZ";
+const validCredentials = {
+  email: "user@gmail.com",
+  password: "T$3qR#p9xZ", 
+};
 
-bcrypt.hash(originalPassword, saltRounds, (err, hashedPassword) => {
-    if (err) {
-        console.error(err);
-    } else {
-        const pass = hashedPassword;
-        const users = [
-            {
-                username: "robbie@topnotchfence.com",
-                password: pass
-            }
-        ];
+console.log(validCredentials.email, validCredentials.password);
 
-        app.get('/users', (req, res) => {
-            res.json(users);
-        });
+app.post("/api/login", (req, res) => {
+  const { email, password } = req.body;
 
-        app.listen(PORT, () => {
-            console.log(`Listening on Port ${PORT}`);
-        });
-    }
+  console.log("Received email:", email);
+  console.log("Received password:", password);
+
+  if (email === validCredentials.email && password === validCredentials.password) {
+    // Authentication successful
+    console.log("Authentication successful");
+    res.status(200).send("Authentication successful");
+  } else {
+    // Authentication failed
+    console.log("Authentication failed");
+    res.status(401).send("Authentication failed");
+  }
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

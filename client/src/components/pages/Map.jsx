@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
-import { MapContainer, TileLayer, FeatureGroup } from "react-leaflet";
+import React, { useState, useRef, useEffect } from "react";import { MapContainer, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
@@ -8,8 +7,8 @@ import osm from "../../osm-providers.js";
 import useGeoLocation from "../../hooks/useGeoLocation.jsx";
 import MapIcon from "../../img/home.png";
 import HouseIcon from "../../img/home-house-silhouette-icon-building--public-domain-pictures--20.png";
-import { useNavigate } from "react-router-dom";
-import { create } from 'zustand';
+import { Link, useNavigate } from "react-router-dom";
+import { create } from 'zustand'
 
 const markerIcon = new L.Icon({
   iconUrl: MapIcon,
@@ -18,7 +17,7 @@ const markerIcon = new L.Icon({
   popupAnchor: [0, -46],
 });
 
-const initialHouseIcon  = new L.Icon({
+const houseIcon = new L.Icon({
   iconUrl: HouseIcon,
   iconSize: [40, 40],
 });
@@ -28,18 +27,14 @@ const Map = () => {
   const ZOOM_LEVEL = 18;
   const mapRef = useRef();
   const [polylines, setPolylines] = useState([]);
-  const [housIcon, setHousIcon] = useState(null);
+  const [houseIcon, setHouseIcon] = useState(null);
   const [tileLayerUrlIndex, setTileLayerUrlIndex] = useState(0);
   const [buttonText, setButtonText] = useState("Remove Trees");
-
-  // Define Zustand store for managing state
-  const useStore = create((set) => ({
-    polylineText: "",
-    setPolylineText: (newText) => set({ polylineText: newText }),
-  }));
+  const [polylineText, setPolylineText] = useState("");
+  const [capturedData, setCapturedData] = useState("");
 
   useEffect(() => {
-    setHousIcon(
+    setHouseIcon(
       new L.Icon({
         iconUrl: HouseIcon,
         iconSize: [40, 40],
@@ -85,8 +80,8 @@ const Map = () => {
         .map((coord) => `Lat: ${coord.lat}, Lng: ${coord.lng}`)
         .join("\n")}\n\n`;
 
-      // Append the formatted information to the Zustand state
-      useStore.setState({ polylineText: useStore.getState().polylineText + formattedInfo });
+      // Append the formatted information to the state
+      setPolylineText((prevText) => prevText + formattedInfo);
     }
 
     return e.layer.toGeoJSON();
@@ -142,12 +137,16 @@ const Map = () => {
     return textAreaValue;
   };
 
-  const handleSubmitData = async (event) => {
+  const handleSubmitData = (event) => {
     event.preventDefault();
 
-    const eventData = await extractEventData(event);
-    await navigate("/submit");
+    const eventData = extractEventData(event);
+    navigate("/submit");
   };
+
+  const useStore = create((set) => {
+    polylineText : polylineText;
+  })
 
   return (
     <div className="map-div row">
@@ -166,7 +165,7 @@ const Map = () => {
                   rectangle: false,
                   circle: true,
                   circlemarker: true,
-                  marker: initialHouseIcon,
+                  marker: houseIcon,
                   polyline: true,
                   polygon: false,
                 }}
@@ -203,19 +202,18 @@ const Map = () => {
         <div className="col text-center">
           <div>
             <div className="input-row">
-            <form onSubmit={handleSubmitData}>
+              <form onSubmit={handleSubmitData}>
                 <textarea
                   rows="5"
                   cols="50"
                   className="next-submit"
-                  value={useStore.getState().polylineText}
-                  onChange={(e) => useStore.setState({ polylineText: e.target.value })} 
+                  value={polylineText}
+                  onChange={(e) => setPolylineText(e.target.value)} 
                 />
                 <br />
                 <br />
                 <div className="btn-pos">
                   <input
-                    onClick={handleSubmitData}
                     className="next-submit"
                     type="submit"
                     value="Submit"

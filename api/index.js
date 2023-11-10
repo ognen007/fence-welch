@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const validCredentials = {
-  email: "user@gmail.com",
+  email: "robbie@topnotchfence.com",
   password: "T$3qR#p9xZ", 
 };
 

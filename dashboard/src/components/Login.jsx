@@ -6,12 +6,6 @@ function Login({ setLoggedIn }) {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    setLoggedIn(true);
-    localStorage.setItem('isLoggedIn', 'true');
-    navigate('/home')
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -30,6 +24,9 @@ function Login({ setLoggedIn }) {
     if (response.status === 200) {
       // Authentication successful
       alert("Login successful!");
+      setLoggedIn(true);
+      localStorage.setItem('isLoggedIn', 'true');
+      navigate("/home")
     } else {
       // Authentication failed
       alert("Login failed. Check your credentials.");
@@ -37,24 +34,32 @@ function Login({ setLoggedIn }) {
   };
 
   return (
-    <div>
+    <div className="form-container">
       <form onSubmit={handleSubmit}>
+        <h3>Enter Login Details</h3>
         <label>
-          Email:
-          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input
+            placeholder="Enter Your Email"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </label>
         <br />
         <label>
-          Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input
+            placeholder="Enter Your Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </label>
         <br />
-        <button onClick={handleLogin}>Login</button>
+        <button type="submit">Login</button>
       </form>
-
-      <p>{password}</p>
     </div>
   );
 }
+
 
 export default Login;

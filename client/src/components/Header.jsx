@@ -6,9 +6,12 @@ const Header = () => {
     <div className="header background-video">
       <div className="header-content">
         <p className="header-text">
-          Draw your fence to <br />
-          get an instant list of all <br />
-          project materials.
+          Know Your Fence Style and <br />Layout?<br />
+          <p className='header-para'>
+          Click the button below to draw your fence<br/>
+          so we can get the ball rolling on this <br/>
+          project!
+          </p>
         </p>
         <br />
         <Link to="/draw-my-fence" className="header-btn">Draw fence</Link>

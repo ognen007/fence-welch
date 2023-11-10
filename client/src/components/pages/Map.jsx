@@ -7,8 +7,9 @@ import osm from "../../osm-providers.js";
 import useGeoLocation from "../../hooks/useGeoLocation.jsx";
 import MapIcon from "../../img/home.png";
 import HouseIcon from "../../img/home-house-silhouette-icon-building--public-domain-pictures--20.png";
-import { Link, useNavigate } from "react-router-dom";
-import { create } from 'zustand'
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setDrawingParcel } from "../../app/drawingParcelSlice.js";
 
 const markerIcon = new L.Icon({
   iconUrl: MapIcon,
@@ -137,16 +138,19 @@ const Map = () => {
     return textAreaValue;
   };
 
+  const dispatch = useDispatch();
+
   const handleSubmitData = (event) => {
     event.preventDefault();
 
-    const eventData = extractEventData(event);
-    navigate("/submit");
-  };
+    const drawingParcel = polylineText
 
-  const useStore = create((set) => {
-    polylineText : polylineText;
-  })
+    localStorage.setItem('drawingParcel', JSON.stringify(drawingParcel));
+    console.log("Draw Parcel:", drawingParcel);
+
+    dispatch(setDrawingParcel(drawingParcel));
+    navigate('/submit')
+  };
 
   return (
     <div className="map-div row">

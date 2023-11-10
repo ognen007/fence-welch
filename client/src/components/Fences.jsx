@@ -10,8 +10,9 @@ const Fences = () => {
         </video>
       </div>
       <div className="right-content">
-        <p className="fence-p">Our Products</p>
-        <p className="fence-head">Fence Styles<br/> In Stock</p>
+        <p className="fence-p">Stuck on What Style You<br/>
+         Want For Your Fence?<br/></p>
+        <p className="fence-head">Get some inspiration here</p>
         <br/>
         <br/>
         <Link to="style" style={{textDecoration: "none", color: "#fff"}} className="draw-btn2">Click here</Link>

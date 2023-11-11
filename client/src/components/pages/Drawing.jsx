@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
-import { setDrawingParcel } from "../../app/drawingParcelSlice";
 import { useDispatch } from "react-redux";
+import { setFormData } from "../../app/formDataSlice";
 
 const types = [
   { value: "chainlink", label: "Chain Link" },
@@ -101,7 +101,7 @@ const submitData = () => {
 
     localStorage.setItem('formData', JSON.stringify(formData));
     console.log("Form Data:", formData);
-    dispatch(setDrawingParcel(formData));
+    dispatch(setFormData(formData));
     navigate('/map');
 }
   return (
@@ -109,7 +109,7 @@ const submitData = () => {
       <form>
       <div className="sm:col-span-4">
           <label className="main-label block text-sm font-medium leading-6 text-gray-900">
-            STEP 1 - PERSONAL DATA
+            STEP 1 - PERSONAL INFO
           </label>
           <div className="mt-2">
             <input

@@ -19,11 +19,17 @@
   }
 
   .form-container input {
-
     border: 1px solid #aaa;
     border-radius: 4px;
     width: 100%;
+    transition: border-color 0.3s; 
   }
+  
+  .form-container input:focus {
+    outline: none; 
+    border-color: none;
+  }
+  
   
   .form-container button {
     padding: 10px 20px;

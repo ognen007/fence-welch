@@ -140,10 +140,8 @@ const Map = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmitData = (event) => {
-    event.preventDefault();
-
-    const drawingParcel = polylineText
+  const handleSubmitData = () => {
+    const drawingParcel = polylineText;
 
     localStorage.setItem('drawingParcel', JSON.stringify(drawingParcel));
     console.log("Draw Parcel:", drawingParcel);

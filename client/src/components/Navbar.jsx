@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import Logo from "../img/DIYFS.png";
 
 const Navbar = () => {
     const email = "robbie@topnotchfence.com";
     
     return (
         <div className="navbar">
-            <Link to="/" className="right-nav"><img className="nav-logo"/></Link>
+            <Link to="/" className="right-nav"><img className="nav-logo" src={Logo}/></Link>
             <div className="left-nav">
                 <Link to="/style" className="nav-element">Style</Link>
                 <a href={`mailto:${email}`} className="nav-element">Contact</a>

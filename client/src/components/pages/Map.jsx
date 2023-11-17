@@ -47,7 +47,7 @@ const Map = () => {
     const shape = e.layer;
     const latlngs = shape.getLatLngs();
     const length = calculateShapeLength(latlngs);
-
+  
     if (shape instanceof L.Polyline) {
       shape.on("editable:vertex:dragend", () => {
         const updatedPolylines = [...polylines];
@@ -63,7 +63,7 @@ const Map = () => {
         };
         setPolylines(updatedPolylines);
       });
-
+  
       setPolylines((prevPolylines) => [
         ...prevPolylines,
         {
@@ -73,20 +73,17 @@ const Map = () => {
           layer: shape,
         },
       ]);
-
-      // Format the polyline information and coordinates
-      const formattedInfo = `Polyline Length: ${length.toFixed(
-        2
-      )} feet\nCoordinates: ${latlngs
-        .map((coord) => `Lat: ${coord.lat}, Lng: ${coord.lng}`)
-        .join("\n")}\n\n`;
-
+  
+      // Format the polyline information with "Length" and the numerical value
+      const formattedInfo = `Length: ${length.toFixed(2)}`;
+  
       // Append the formatted information to the state
-      setPolylineText((prevText) => prevText + formattedInfo);
+      setPolylineText((prevText) => prevText + formattedInfo + "\n");
     }
-
+  
     return e.layer.toGeoJSON();
-  };
+  }; 
+  
 
   const calculateShapeLength = (latlngs) => {
     let totalDistance = 0;

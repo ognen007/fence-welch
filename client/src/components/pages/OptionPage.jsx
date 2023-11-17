@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import Header from "../Header";
 import Navbar from "../Navbar";
 import Vinyl from "../../img/fences/Vinyl.jpeg";
@@ -8,74 +11,56 @@ import Wood from "../../img/fences/wood.jpeg";
 import { VinylText, BlackText, OrnamentalText, WoodText } from "../Texts";
 
 const OptionPage = () => {
-  const [vinyl, setVinyl] = useState(false);
-  const [black, setBlack] = useState(false);
-  const [ornamental, setOrnamental] = useState(false);
-  const [wood, setWood] = useState(false);
-  const [containerHeight, setContainerHeight] = useState(290);
-
-  const toggleVinyl = () => {
-    setVinyl((prevState) => !prevState);
-    setContainerHeight((prevHeight) =>
-      vinyl ? prevHeight - 10 : prevHeight + 10
-    );
-  };
-
-  const toggleBlack = () => {
-    setBlack((prevState) => !prevState);
-    setContainerHeight((prevHeight) =>
-      black ? prevHeight - 10 : prevHeight + 10
-    );
-  };
-
-  const toggleOrnamental = () => {
-    setOrnamental((prevState) => !prevState);
-    setContainerHeight((prevHeight) =>
-      ornamental ? prevHeight - 10 : prevHeight + 10
-    );
-  };
-
-  const toggleWood = () => {
-    setWood((prevState) => !prevState);
-    setContainerHeight((prevHeight) =>
-      wood ? prevHeight - 10 : prevHeight + 10
-    );
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true, 
+    autoplaySpeed: 2000, 
   };
 
   return (
     <div>
       <Navbar />
-      <div className="photos" style={{ height: `${containerHeight}vh` }}>
-        <br/>
-        <div className="gallery">
-          <p>Maintenance Free Vinyl Fence</p>
-          <img src={Vinyl} alt="Vinyl Fence" />
-          <br />
-          <button onClick={toggleVinyl}>Learn more</button>
-          {vinyl ? <VinylText /> : null}
-          <br />
+      <div className="options">
+      <div className="carousel-container">
+        <Slider {...settings}>
+          <div className="carousel-item">
+            <img src={Vinyl} alt="Vinyl Fence" />
+            <div className="text-container">
+              <p>Maintenance Free Vinyl Fence</p>
+              <VinylText />
+            </div>
+          </div>
 
-          <p>Black Chain-Link Fence</p>
-          <img src={BlackChain} alt="Black Chain-Link Fence" />
-          <br />
-          <button onClick={toggleBlack}>Learn more</button>
-          {black ? <BlackText /> : null}
-          <br />
+          <div className="carousel-item">
+            <img src={BlackChain} alt="Black Chain-Link Fence" />
+            <div className="text-container">
+              <p>Black Chain-Link Fence</p>
+              <BlackText />
+            </div>
+          </div>
 
-          <p>Ornamental Fence</p>
-          <img src={Ornamental} alt="Ornamental Fence" />
-          <br />
-          <button onClick={toggleOrnamental}>Learn more</button>
-          {ornamental ? <OrnamentalText /> : null}
-          <br />
+          <div className="carousel-item">
+            <img src={Ornamental} alt="Ornamental Fence" />
+            <div className="text-container">
+              <p>Ornamental Fence</p>
+              <OrnamentalText />
+            </div>
+          </div>
 
-          <p>Wood Fence</p>
-          <img src={Wood} alt="Wood Fence" />
-          <br />
-          <button onClick={toggleWood}>Learn more</button>
-          {wood ? <WoodText /> : null}
-          <br />
+          <div className="carousel-item">
+            <img src={Wood} alt="Wood Fence" />
+            <div className="text-container">
+              <p>Wood Fence</p>
+              <WoodText />
+            </div>
+          </div>
+        </Slider>
         </div>
+        
       </div>
       <Header />
     </div>

@@ -44,6 +44,7 @@ const SubmitForm = () => {
   
 
   return (
+    <div className='submitForm'>
 <div className='end-page'>
   <h1>Submitted Data</h1>
   <br/>
@@ -58,7 +59,7 @@ const SubmitForm = () => {
     {displayFormData(formData.data)}
   </div>
 </div>
-
+</div>
   );
 };
 

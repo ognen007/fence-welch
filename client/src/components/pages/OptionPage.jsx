@@ -10,21 +10,47 @@ import Ornamental from "../../img/fences/ornamental.jpeg";
 import Wood from "../../img/fences/wood.jpeg";
 import { VinylText, BlackText, OrnamentalText, WoodText } from "../Texts";
 
+
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'none' }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style, display: 'none' }}
+      onClick={onClick}
+    />
+  );
+}
+
 const OptionPage = () => {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true, 
-    autoplaySpeed: 2000, 
+    autoplaySpeed: 2000,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
   };
 
   return (
     <div>
       <Navbar />
       <div className="options">
+        
       <div className="carousel-container">
         <Slider {...settings}>
           <div className="carousel-item">

@@ -1,3 +1,4 @@
+import DrawSection from "../DrawSection";
 import Fences from "../Fences";
 import People from "../People";
 import Home from "./Home";
@@ -7,7 +8,7 @@ const Home2 = () => {
         <div>
             <Home/>
             <Fences/>
-            <People/>
+            <DrawSection/>
         </div>
     )
 }

@@ -190,7 +190,7 @@ const Map = () => {
           </button>
 
           <button className="locate-btn" onClick={() => toggleCanvas()}>
-            Toggle Canvas
+            Blank Canvas
           </button>
         </div>
       </div>

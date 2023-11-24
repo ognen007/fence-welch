@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import { setFormData } from "../../app/formDataSlice";
+import FenceLogo from "../../img/fence.png";
 
 const types = [
   { value: "chainlink", label: "Chain Link" },
@@ -105,8 +106,8 @@ const submitData = () => {
     navigate('/map');
 }
   return (
-    <div style={{ marginLeft: "40px", marginTop: "40px" }}>
-      <form>
+    <div className="datainput" style={{width: "100%", height: "100vh"}}>
+      <form style={{paddingTop: "40px", paddingLeft: "30px"}}>
       <div className="sm:col-span-4">
           <label className="main-label block text-sm font-medium leading-6 text-gray-900">
             STEP 1 - PERSONAL INFO

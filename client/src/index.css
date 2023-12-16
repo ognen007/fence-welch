@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.seperate-options{
+  overflow-x: hidden;
+}
+
 @keyframes scroll-fade {
   0% {
     opacity: 0;
@@ -866,4 +870,35 @@ textarea.expanding {
 
 .datainput{
   background: linear-gradient(to right, #ece9e6, #ffffff);
+}
+
+
+/* fence-gallery */
+
+.fence-gallery{
+  width: 100%;
+  height: 110vh;
+  background-color: #000000;
+  color: #fff;
+  font-size: 1.1vw;
+}
+
+.card-holder1{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.card-holder2{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+/*  */
+
+.custom-arrow:before {
+  font-size: 40px;
+  color: #fff;
 }

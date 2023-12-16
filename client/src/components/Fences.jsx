@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom";
-import Mail from "../img/mail_loop.mp4";
+import Mail from "../img/tool.png";
 
 const Fences = () => {  
   return (
     <div className="fence">
       <div className="left-content">
-        <video src={Mail} autoPlay loop muted>
-          Your browser does not support the video tag.
-        </video>
+        <img className="tool-img" src={Mail}/>
       </div>
       <div className="right-content">
         <p className="fence-p">Stuck on What Style You<br/>

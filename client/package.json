@@ -21,6 +21,7 @@
     "npm": "^10.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-grid-gallery": "^1.0.1-alpha.0",
     "react-icons": "^4.11.0",
     "react-leaflet": "^4.2.1",
     "react-leaflet-draw": "^0.20.4",

@@ -13,7 +13,7 @@ function Login({ setLoggedIn }) {
     console.log("Password:", password);
 
     // Send a POST request to the Node.js backend to authenticate the user
-    const response = await fetch("http://localhost:5000/api/login", {
+    const response = await fetch("http://localhost:5005/api/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

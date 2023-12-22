@@ -148,7 +148,7 @@ const Map = () => {
   };
 
   return (
-    <div className="map-div row">
+    <div style={{background: "fff"}} className="map-div row">
       <div className="col text-center">
         <div className="map-container col">
           <MapContainer

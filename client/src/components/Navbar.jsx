@@ -45,7 +45,7 @@ const Navbar = () => {
 
 const UnderLineBar = () => {
   return (
-    <div className="underline" style={{ opacity: "0.99", zIndex: 999 }}>
+    <div className="underline" style={{ opacity: "0.99", zIndex: 999, color: "#000" }}>
       <div className="underline-container">
         <div className="element-product">
           <img src={Chain} alt="" />

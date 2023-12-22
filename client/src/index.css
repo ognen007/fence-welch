@@ -308,7 +308,7 @@
 
 .select-container .next-submit {
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #14147c;
   color: white;
   border: none;
   border-radius: 4px;
@@ -736,7 +736,7 @@
 }
 .options {
   width: 100%;
-  background-color: #000000;
+  background-color: #335AAA;
   color: #fff;
   height: 100vh;
   display: flex;
@@ -785,6 +785,9 @@ img {
   border-radius: 50%;
 }
 
+.text-container{
+  text-align: center;
+}
 
 /* Drawing */
 
@@ -845,7 +848,7 @@ textarea.expanding {
 
 .map-div{
   width: 100%;
-  background: linear-gradient(to right, #ece9e6, #ffffff);
+  background: #fff;
 }
 
 .map-container {
@@ -942,7 +945,7 @@ textarea.expanding {
 
 .end-page form button {
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #14147c;
   color: white;
   border: none;
   border-radius: 4px;
@@ -951,7 +954,7 @@ textarea.expanding {
 }
 
 .end-page form button:hover {
-  background-color: #45a049;
+  background-color: #2a2a9c;
 }
 
 .button-group {
@@ -968,7 +971,7 @@ textarea.expanding {
 
 .link-button {
   display: inline-block;
-  background-color: #4CAF50;
+  background-color: #14147c;
   color: white;
   border-radius: 4px;
   text-align: center;
@@ -977,7 +980,7 @@ textarea.expanding {
 }
 
 .link-button:hover {
-  background-color: #45a049;
+  background-color: #2a2a9c;
 }
 
 .datainput{
@@ -986,7 +989,7 @@ textarea.expanding {
 
 .select-container .next-submit {
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #14147c;
   color: white;
   border: none;
   border-radius: 4px;
@@ -998,31 +1001,51 @@ textarea.expanding {
 }
 
 .select-container .next-submit:hover {
-  background-color: #45a049;
+  background-color: #2a2a9c;
 }
 
 
 /* fence-gallery */
 
-.fence-gallery{
+/* fence-gallery */
+.fence-gallery {
   width: 100%;
-  height: 110vh;
-  background-color: #000000;
+  min-height: 110vh;
+  background: linear-gradient(to right, #373b44, #4286f4);
   color: #fff;
   font-size: 1.1vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.card-holder1{
+.card-holder1 {
   width: 100%;
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  margin-top: 100px; /* Adjust as needed */
 }
 
-.card-holder2{
+
+.card-holder1, .card-holder2 {
   width: 100%;
   display: flex;
   justify-content: space-around;
-  text-align: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.block-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.block-card img {
+  width: 100%;
+  height: auto;
 }
 
 /*  */

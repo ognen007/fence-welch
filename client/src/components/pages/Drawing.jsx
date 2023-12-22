@@ -106,7 +106,7 @@ const submitData = () => {
     navigate('/map');
 }
   return (
-    <div className="datainput drawing-container" style={{width: "100%", height: "100vh"}}>
+    <div className="datainput drawing-container" style={{background: "#fff",width: "100%", height: "100vh"}}>
       <div className="select-container">
       <form style={{paddingTop: "40px", paddingLeft: "30px"}}>
       <div className="sm:col-span-4">

@@ -2,7 +2,17 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Wood from "../../img/fences/wood.jpeg";
+import Vinyl1 from "../../img/carousel-imgs/vinyl/3-Rail (1).jpg";
+import Vinyl2 from "../../img/carousel-imgs/vinyl/3-Rail (2).jpg";
+import Vinyl3 from "../../img/carousel-imgs/vinyl/3-Rail (3).jpg";
+import Vinyl4 from "../../img/carousel-imgs/vinyl/3-Rail.jpg";
+import Vinyl5 from "../../img/carousel-imgs/vinyl/6' Tan Vinyl Privacy (1).jpg";
+import Vinyl6 from "../../img/carousel-imgs/vinyl/6' Tan Vinyl Privacy.jpeg";
+import Vinyl7 from "../../img/carousel-imgs/vinyl/6' Tan Vinyl Privacy.jpg";
+import Vinyl8 from "../../img/carousel-imgs/vinyl/6' Tan Vinyl Privacy.png";
+import Vinyl9 from "../../img/carousel-imgs/vinyl/6' White Vinyl Privacy (1).jpeg";
+import Vinyl10 from "../../img/carousel-imgs/vinyl/6' White Vinyl Privacy.jpeg";
+import Vinyl11 from "../../img/carousel-imgs/vinyl/6' White Vinyl Privacy.png";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -47,19 +57,34 @@ const WoodCarousel = () => {
         <div className="carousel-container">
           <Slider {...settings}>
             <div className="carousel-item">
-              <img src={Wood} alt="Vinyl Fence" />
+              <img src={Vinyl1} alt="Vinyl Fence" />
+            </div>
+            
+            <div className="carousel-item">
+              <img src={Vinyl3} alt="Vinyl Fence" />
             </div>
 
             <div className="carousel-item">
-              <img src={Wood} alt="Vinyl Fence" />
+              <img src={Vinyl4} alt="Vinyl Fence" />
+            </div>
+            <div className="carousel-item">
+              <img src={Vinyl5} alt="Vinyl Fence" />
+            </div>
+            <div className="carousel-item">
+              <img src={Vinyl6} alt="Vinyl Fence" />
+            </div>
+            <div className="carousel-item">
+              <img src={Vinyl7} alt="Vinyl Fence" />
             </div>
 
             <div className="carousel-item">
-              <img src={Wood} alt="Vinyl Fence" />
+              <img src={Vinyl9} alt="Vinyl Fence" />
             </div>
-
             <div className="carousel-item">
-              <img src={Wood} alt="Vinyl Fence" />
+              <img src={Vinyl10} alt="Vinyl Fence" />
+            </div>
+            <div className="carousel-item">
+              <img src={Vinyl11} alt="Vinyl Fence" />
             </div>
           </Slider>
         </div>

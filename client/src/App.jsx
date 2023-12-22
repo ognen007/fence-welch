@@ -8,6 +8,8 @@ import SubmitForm from './components/pages/SubmitForm';
 import FenceGallery from './components/pages/FenceGallery';
 import WoodCarousel from "./components/pages/WoodCarousel"
 import ChainCarousel from "./components/pages/ChainCarousel"
+import VinylCarousel from "./components/pages/VinylCarousel"
+import OrnamentalCarousel from "./components/pages/OrnamentalCarousel"
 const App = () => {
   return (
       <BrowserRouter>
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="/style" element={<FenceGallery />} />
           <Route path="/wood" element={<WoodCarousel />} />
           <Route path="/chain" element={<ChainCarousel />} />
+          <Route path="/vinyl" element={<VinylCarousel />} />
+          <Route path="/ornamental" element={<OrnamentalCarousel />} />
           <Route path="/draw-my-fence" element={<Drawing />} />
           <Route path="/map" element={<Map />} />
           <Route path="/submit" element={<SubmitForm />} />

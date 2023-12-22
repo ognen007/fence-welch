@@ -70,7 +70,7 @@ const SubmitForm = () => {
             {displayFormData(formData.data)}
           </div>
           <div className="button-group">
-            <button type="submit">Click here</button>
+            <button type="submit">Submit Form</button>
             <Link to="/draw-my-fence" className="link-button">
               Start Again
             </Link>

@@ -12,8 +12,6 @@ import Chain7 from "../../img/carousel-imgs/chain/Galvanized Chain Link (1).jpg"
 import Chain8 from "../../img/carousel-imgs/chain/Black Chain Link (2).jpeg";
 import Chain9 from "../../img/carousel-imgs/chain/Black Chain Link (3).jpeg";
 import Chain10 from "../../img/carousel-imgs/chain/Galvanized Chain Link (4).jpg";
-import Chain11 from "../../img/carousel-imgs/chain/Galvanized Chain Link (5).jpg";
-import Chain12 from "../../img/carousel-imgs/chain/Galvanized Chain Link.jpg";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -97,9 +95,6 @@ const WoodCarousel = () => {
               <img src={Chain10} alt="Vinyl Fence" />
             </div>
 
-            <div className="carousel-item">
-              <img src={Chain11} alt="Vinyl Fence" />
-            </div>
 
           </Slider>
         </div>

@@ -55,7 +55,7 @@ function Login({ setLoggedIn }) {
           />
         </label>
         <br />
-        <button type="submit">Login</button>
+        <button className="button" type="submit">Login</button>
       </form>
     </div>
   );

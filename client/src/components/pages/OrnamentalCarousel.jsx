@@ -2,18 +2,17 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Ornamental1 from "../../img/fences/wood.jpeg";
-import Ornamental2 from "../../img/fences/wood.jpeg";
-import Ornamental3 from "../../img/fences/wood.jpeg";
-import Ornamental4 from "../../img/fences/wood.jpeg";
-import Ornamental5 from "../../img/fences/wood.jpeg";
-import WoodOrnamental6 from "../../img/fences/wood.jpeg";
-import Ornamental7 from "../../img/fences/wood.jpeg";
-import Ornamental8 from "../../img/fences/wood.jpeg";
-import Ornamental9 from "../../img/fences/wood.jpeg";
-import Ornamental10 from "../../img/fences/wood.jpeg";
-import Ornamental11 from "../../img/fences/wood.jpeg";
-import Ornamental12 from "../../img/fences/wood.jpeg";
+import Ornamental1 from "../../img/carousel-imgs/ornamental/Flat Top (1).jpg";
+import Ornamental2 from "../../img/carousel-imgs/ornamental/Flat Top (2).jpg";
+import Ornamental3 from "../../img/carousel-imgs/ornamental/Flat Top (3).jpg";
+import Ornamental4 from "../../img/carousel-imgs/ornamental/Flat Top (4).jpg";
+import Ornamental5 from "../../img/carousel-imgs/ornamental/Flat Top.jpeg";
+import Ornamental6 from "../../img/carousel-imgs/ornamental/Flat Top.jpg";
+import Ornamental7 from "../../img/carousel-imgs/ornamental/Spear Top (1).jpeg";
+import Ornamental8 from "../../img/carousel-imgs/ornamental/Spear Top Ornamental (1).jpg";
+import Ornamental9 from "../../img/carousel-imgs/ornamental/Spear Top Ornamental.jpg";
+import Ornamental10 from "../../img/carousel-imgs/ornamental/Spear Top.jpeg";
+import Ornamental11 from "../../img/carousel-imgs/ornamental/Spear Top2.jpg";
 
 function SampleNextArrow(props) {
     const { className, style, onClick } = props;
@@ -58,19 +57,37 @@ const WoodCarousel = () => {
         <div className="carousel-container">
           <Slider {...settings}>
             <div className="carousel-item">
-              <img src={Wood} alt="Vinyl Fence" />
+              <img src={Ornamental1} alt="Vinyl Fence" />
+            </div>
+
+
+            <div className="carousel-item">
+              <img src={Ornamental3} alt="Vinyl Fence" />
             </div>
 
             <div className="carousel-item">
-              <img src={Wood} alt="Vinyl Fence" />
+              <img src={Ornamental4} alt="Vinyl Fence" />
             </div>
-
             <div className="carousel-item">
-              <img src={Wood} alt="Vinyl Fence" />
+              <img src={Ornamental5} alt="Vinyl Fence" />
             </div>
-
             <div className="carousel-item">
-              <img src={Wood} alt="Vinyl Fence" />
+              <img src={Ornamental6} alt="Vinyl Fence" />
+            </div>
+            <div className="carousel-item">
+              <img src={Ornamental7} alt="Vinyl Fence" />
+            </div>
+            <div className="carousel-item">
+              <img src={Ornamental8} alt="Vinyl Fence" />
+            </div>
+            <div className="carousel-item">
+              <img src={Ornamental9} alt="Vinyl Fence" />
+            </div>
+            <div className="carousel-item">
+              <img src={Ornamental10} alt="Vinyl Fence" />
+            </div>
+            <div className="carousel-item">
+              <img src={Ornamental11} alt="Vinyl Fence" />
             </div>
           </Slider>
         </div>

@@ -147,6 +147,19 @@ const Map = () => {
     dispatch(setDrawingParcel(drawingParcel));
     navigate('/submit')
   };
+  
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
 
   const pushUser = () => {
     navigate("/");

@@ -8,19 +8,33 @@ const SubmitForm = () => {
   const drawingParcel = useSelector((state) => state.drawingParcel);
   const formData = useSelector((state) => state.formData);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = '';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); // prevent form from submitting normally
-
+    event.preventDefault(); 
+  
     const data = {
       drawParcel: drawingParcel.data,
       formData: formData.data,
     };
-
+  
     try {
       await axios.post("http://localhost:5000/api/data", data);
       alert("Data submitted successfully!");
+      navigate("/thanks"); 
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -55,11 +69,6 @@ const SubmitForm = () => {
     }
     return dataItems;
   };
-
-  const pushOrigin = () => {
-    navigate("/thanks")
-  }
-
   
 
   return (
@@ -82,7 +91,7 @@ const SubmitForm = () => {
             <Link to="/draw-my-fence" className="link-button">
               Start Again
             </Link>
-            <button onClick={() => pushOrigin()} type="submit">Submit Form</button>
+            <button type="submit">Submit Form</button>
           </div>
         </form>
       </div>

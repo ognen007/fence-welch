@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
@@ -77,6 +77,7 @@ const Drawing = ({setResponse}) => {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const handleTypeChange = (selectedOption) => {
     setSelectedType(selectedOption);
@@ -97,6 +98,7 @@ const submitData = () => {
     selectHeight: selectHeight,
     selectColor: selectColor,
     email: email,
+    phoneNumber: phoneNumber,
     firstName: firstName,
     streetAddress: streetAddress,
   };
@@ -106,6 +108,19 @@ const submitData = () => {
     dispatch(setFormData(formData));
     navigate('/map');
 }
+
+useEffect(() => {
+  const handleBeforeUnload = (event) => {
+    event.preventDefault();
+    event.returnValue = '';
+  };
+
+  window.addEventListener('beforeunload', handleBeforeUnload);
+
+  return () => {
+    window.removeEventListener('beforeunload', handleBeforeUnload);
+  };
+}, []);
 
 const pushUser = () => {
   navigate("/");
@@ -121,19 +136,7 @@ const pushUser = () => {
             STEP 1 - PERSONAL INFO
           </label>
           <div className="mt-2">
-            <input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              type="email"
-              placeholder="example@example.com"
-              autoComplete="email"
-              className="input-info block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              required
-            />
-          </div>
-        </div>
-        <br />
-        <br />
+          <br />
         <div className="mt-2">
           <input
             type="text"
@@ -147,6 +150,30 @@ const pushUser = () => {
             required
           />
         </div>
+        <br />
+        <br />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="example@example.com"
+              autoComplete="email"
+              className="input-info block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              required
+            />
+          </div>
+          <br/>
+          <br/>
+          <input
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              type="phone number"
+              placeholder="+ (111) 222 333"
+              autoComplete="phone number"
+              className="input-info block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              required
+            />
+          </div>
         <br />
         <br />
         <div className="mt-2">

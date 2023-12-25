@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mandali&display=swap');
 
 * {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Mandali', sans-serif;
 }
 
 .data-table {
@@ -20,7 +20,7 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background: linear-gradient(to right, #373b44, #4286f4);
+  background: #121212;
   color: white;
 }
 

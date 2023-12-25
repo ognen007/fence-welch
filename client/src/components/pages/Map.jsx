@@ -10,6 +10,7 @@ import HouseIcon from "../../img/home-house-silhouette-icon-building--public-dom
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setDrawingParcel } from "../../app/drawingParcelSlice.js";
+import CloseLogo from "../../img/close.png";
 
 const markerIcon = new L.Icon({
   iconUrl: MapIcon,
@@ -147,8 +148,14 @@ const Map = () => {
     navigate('/submit')
   };
 
+  const pushUser = () => {
+    navigate("/");
+  }
+  
+
   return (
     <div style={{background: "fff"}} className="map-div row">
+      <img onClick={() => pushUser()} src={CloseLogo} alt="Close Logo" style={{position: 'absolute', top: 15, left: 15, width:"35px", cursor: "pointer"}}/>
       <div className="col text-center">
         <div className="map-container col">
           <MapContainer

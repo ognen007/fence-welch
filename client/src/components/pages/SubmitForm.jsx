@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -6,6 +7,8 @@ import axios from "axios";
 const SubmitForm = () => {
   const drawingParcel = useSelector((state) => state.drawingParcel);
   const formData = useSelector((state) => state.formData);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // prevent form from submitting normally
@@ -53,6 +56,12 @@ const SubmitForm = () => {
     return dataItems;
   };
 
+  const pushOrigin = () => {
+    navigate("/thanks")
+  }
+
+  
+
   return (
     <div className="submitForm">
       <div className="end-page">
@@ -70,10 +79,10 @@ const SubmitForm = () => {
             {displayFormData(formData.data)}
           </div>
           <div className="button-group">
-            <button type="submit">Submit Form</button>
             <Link to="/draw-my-fence" className="link-button">
               Start Again
             </Link>
+            <button onClick={() => pushOrigin()} type="submit">Submit Form</button>
           </div>
         </form>
       </div>

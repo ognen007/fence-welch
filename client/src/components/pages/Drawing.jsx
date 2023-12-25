@@ -4,6 +4,7 @@ import Select from "react-select";
 import { useDispatch } from "react-redux";
 import { setFormData } from "../../app/formDataSlice";
 import FenceLogo from "../../img/fence.png";
+import CloseLogo from "../../img/close.png";
 
 const types = [
   { value: "chainlink", label: "Chain Link" },
@@ -105,8 +106,14 @@ const submitData = () => {
     dispatch(setFormData(formData));
     navigate('/map');
 }
+
+const pushUser = () => {
+  navigate("/");
+}
+
   return (
     <div className="datainput drawing-container" style={{background: "#fff",width: "100%", height: "100vh"}}>
+      <img onClick={() => pushUser()} src={CloseLogo} alt="Close Logo" style={{position: 'absolute', top: 15, left: 15, width:"35px", cursor: "pointer"}}/>
       <div className="select-container">
       <form style={{paddingTop: "40px", paddingLeft: "30px"}}>
       <div className="sm:col-span-4">

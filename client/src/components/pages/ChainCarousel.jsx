@@ -51,7 +51,9 @@ const WoodCarousel = () => {
   };
 
   return (
-    <div className="seperate-options">
+    <div className="seperate-options" style={{background: "#121212", color: "#fff",textAlign: "center"}}>
+      <p style={{background: "#121212", color: "#fff", fontSize: "2rem", paddingTop: "40px"}}>Chain-Link</p>
+      <i style={{fontSize: "1rem"}}>Chain-link fences are durable, low-maintenance, and made from galvanized steel wire</i>
       <div className="options">
         <div className="carousel-container">
           <Slider {...settings}>

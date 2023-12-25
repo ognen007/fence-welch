@@ -1,8 +1,8 @@
 import React from 'react'
 import Navbar from '../Navbar'
 import Vinyl from "../../img/fences/Vinyl.jpeg";
-import BlackChain from "../../img/fences/black-chain.jpeg";
-import Ornamental from "../../img/fences/ornamental.jpeg";
+import BlackChain from "../../img/carousel-imgs/chain/Black Chain Link (3).jpeg";
+import Ornamental from "../../img/carousel-imgs/ornamental/Spear Top.jpeg";
 import Wood from "../../img/fences/wood.jpeg";
 import { VinylText, BlackText, OrnamentalText, WoodText } from "../Texts";
 import { Link } from 'react-router-dom';

@@ -47,7 +47,9 @@ const WoodCarousel = () => {
   };
 
   return (
-    <div className="seperate-options">
+    <div className="seperate-options" style={{background: "#121212", color: "#fff",textAlign: "center"}}>
+      <p style={{background: "#121212", color: "#fff", fontSize: "2rem", paddingTop: "40px"}}>Wood</p>
+      <i style={{fontSize: "1rem"}}>Wood fences provide a classic and versatile look for your property</i>
       <div className="options">
         <div className="carousel-container">
           <Slider {...settings}>

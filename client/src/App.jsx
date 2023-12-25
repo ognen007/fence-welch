@@ -10,6 +10,7 @@ import WoodCarousel from "./components/pages/WoodCarousel"
 import ChainCarousel from "./components/pages/ChainCarousel"
 import VinylCarousel from "./components/pages/VinylCarousel"
 import OrnamentalCarousel from "./components/pages/OrnamentalCarousel"
+import Thanks from './components/pages/Thanks';
 const App = () => {
   return (
       <BrowserRouter>
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/ornamental" element={<OrnamentalCarousel />} />
           <Route path="/draw-my-fence" element={<Drawing />} />
           <Route path="/map" element={<Map />} />
+          <Route path="/thanks" element={<Thanks />} />
           <Route path="/submit" element={<SubmitForm />} />
         </Routes>
       </BrowserRouter>

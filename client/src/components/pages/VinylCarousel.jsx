@@ -52,7 +52,9 @@ const WoodCarousel = () => {
   };
 
   return (
-    <div className="seperate-options">
+    <div className="seperate-options" style={{background: "#121212", color: "#fff",textAlign: "center"}}>
+      <p style={{background: "#121212", color: "#fff", fontSize: "2rem", paddingTop: "40px"}}>Vinyl</p>
+      <i style={{fontSize: "1rem"}}>Vinyl fence is a durable and weather-resistant option</i>
       <div className="options">
         <div className="carousel-container">
           <Slider {...settings}>

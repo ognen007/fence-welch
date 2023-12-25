@@ -75,7 +75,7 @@ const Drawing = ({setResponse}) => {
   const [selectHeight, setSelectedHeight] = useState(null);
   const [selectColor, setSelectedColor] = useState(null);
   const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
+  const [fullName, setFullName] = useState('');
   const [streetAddress, setStreetAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
 
@@ -99,7 +99,7 @@ const submitData = () => {
     selectColor: selectColor,
     email: email,
     phoneNumber: phoneNumber,
-    firstName: firstName,
+    fullName: fullName,
     streetAddress: streetAddress,
   };
 
@@ -142,8 +142,8 @@ const pushUser = () => {
             type="text"
             name="first-name"
             id="first-name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
             autoComplete="given-name"
             placeholder="Full Name"
             className="input-info block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -245,7 +245,7 @@ const pushUser = () => {
           onClick={submitData}
             className="next-submit"
             type="button"
-            value="submit"
+            value="Submit"
           />
       </form>
       </div>

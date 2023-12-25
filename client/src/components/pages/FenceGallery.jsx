@@ -7,7 +7,6 @@ import Wood from "../../img/fences/wood.jpeg";
 import { VinylText, BlackText, OrnamentalText, WoodText } from "../Texts";
 import { Link } from 'react-router-dom';
 
-
 const FenceGallery = () => {
   return (
     <div style={{background : "#121212"}} className='fence-gallery'>
@@ -15,7 +14,8 @@ const FenceGallery = () => {
         <div className='card-holder1'>
             <div className='block-card'>
                 <Link to="/vinyl">
-                <img src={Vinyl}/>
+                  <img src={Vinyl}/>
+                  <button style={{color: "#fff", background: "#009FFF", padding: "7px", border: "none", borderRadius: "4px"}}>View Details</button>
                 </Link>
                 <br/>
                 <VinylText/>
@@ -23,7 +23,8 @@ const FenceGallery = () => {
 
             <div className='block-card'>
                 <Link to="/chain">
-                <img src={BlackChain}/>
+                  <img src={BlackChain}/>
+                  <button style={{color: "#fff", background: "#009FFF", padding: "7px", border: "none", borderRadius: "4px"}}>View Details</button>
                 </Link>
                 <br/>
                 <BlackText/>
@@ -35,7 +36,8 @@ const FenceGallery = () => {
         <div className='card-holder2'>
             <div className='block-card'>
                 <Link to='/ornamental'>
-                <img src={Ornamental}/>
+                  <img src={Ornamental}/>
+                  <button style={{color: "#fff", background: "#009FFF", padding: "7px", border: "none", borderRadius: "4px"}}>View Details</button>
                 </Link>
                 <br/>
                 <OrnamentalText/>
@@ -43,7 +45,8 @@ const FenceGallery = () => {
 
             <div className='block-card'>
                 <Link to="/wood">
-                <img src={Wood}/>
+                  <img src={Wood}/>
+                  <button style={{color: "#fff", background: "#009FFF", padding: "7px", border: "none", borderRadius: "4px"}}>View Details</button>
                 </Link>
                 <br/>
                 <WoodText/>
@@ -53,4 +56,4 @@ const FenceGallery = () => {
   )
 }
 
-export default FenceGallery
+export default FenceGallery;

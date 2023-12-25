@@ -4,7 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors');
 
 const app = express();
-const uri = 'mongodb+srv://ognen:admin12345@cluster0.m6docgy.mongodb.net/?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://ognen:admin12345@cluster0.droktuw.mongodb.net/';
 
 MongoClient.connect(uri)
 .then(client => {

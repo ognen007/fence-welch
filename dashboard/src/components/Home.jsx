@@ -4,6 +4,17 @@ import axios from "axios";
 const Home = ({setLoggedIn}) => {
   const [data, setData] = useState([]);
 
+  const headerMapping = {
+    selectedType: "Selected Type",
+    selectedStyle: "Selected Style",
+    selectHeight: "Selected Height",
+    selectColor: "Selected Color",
+    email: "E-Mail",
+    phoneNumber: "Phone Number",
+    fullName: "Full Name",
+    streetAddress: "Street Address",
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -23,44 +34,42 @@ const Home = ({setLoggedIn}) => {
   };
 
   return (
-<div>
-  <table className="data-table">
-    <thead>
-      <tr>
-        <th>Draw Parcel</th>
-        <th>Form Data</th>
-      </tr>
-    </thead>
-    <tbody>
-    {data.map((item, index) => (
-  <tr key={index}>
-    <td>{item.drawParcel}</td>
-    <td>
-      {item.formData && Object.entries(item.formData).map(([key, value]) => {
-        if (value instanceof Object) {
-          return Object.entries(value).map(([subKey, subValue]) => (
-            <p key={`${key}-${subKey}`}>
-              {`${subKey}: ${subValue}`}
-            </p>
-          ));
-        } else {
-          return (
-            <p key={key}>
-              {`${key}: ${value}`}
-            </p>
-          );
-        }
-      })}
-    </td>
-  </tr>
-))}
-
-    </tbody>
-  </table>
-  <button className="logout-button" onClick={handleLogout}>Logout</button>
+    <div>
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th>Draw Parcel</th>
+            {data[0] && data[0].formData && Object.entries(data[0].formData).map(([key]) => {
+              if (key !== 'value') {
+                return (
+                  <th key={key}>{headerMapping[key] || key}</th>
+                );
+              }
+              return null;
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {data.slice(0).reverse().map((item, index) => (
+            <tr key={index}>
+              <td>{item.drawParcel}</td>
+              {item.formData && Object.entries(item.formData).map(([key, value]) => {
+                if (key !== 'value') {
+                  return (
+                    <td key={key}>
+                      {typeof value === 'object' && value !== null ? value.label : value}
+                    </td>
+                  );
+                }
+                return null;
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <button className="logout-button" onClick={handleLogout}>Logout</button>
     </div>
   );
 };
 
 export default Home;
-

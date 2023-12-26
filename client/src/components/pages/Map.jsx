@@ -138,7 +138,14 @@ const Map = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmitData = () => {
+  const handleSubmitData = (event) => {
+    event.preventDefault();
+
+    if (!polylineText) {
+      alert('Please draw a polyline');
+      return;
+    }
+
     const drawingParcel = polylineText;
 
     localStorage.setItem('drawingParcel', JSON.stringify(drawingParcel));
@@ -228,15 +235,17 @@ const Map = () => {
                   className="next-submit"
                   value={polylineText}
                   onChange={(e) => setPolylineText(e.target.value)} 
+                  required
                 />
                 <br />
                 <br />
                 <div className="btn-pos">
-                  <input
+                  <button
                     className="next-submit"
                     type="submit"
-                    value="Submit"
-                  />
+                  >
+                    Submit
+                  </button>
                 </div>
               </form>
             </div>

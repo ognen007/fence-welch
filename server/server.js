@@ -4,8 +4,7 @@ const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors');
 
 const app = express();
-const uri = 'mongodb+srv://ognen:admin12345@cluster0.droktuw.mongodb.net/';
-
+const uri = 'mongodb+srv://ognen:admin12345@cluster0.0p2buny.mongodb.net/?retryWrites=true&w=majority';
 MongoClient.connect(uri)
 .then(client => {
     console.log("Connected to database");
@@ -17,17 +16,19 @@ MongoClient.connect(uri)
 
     app.post('/api/data', async (req, res) => {
         const data = {
-            drawParcel: req.body.drawParcel,
-            formData: req.body.formData,
+          drawParcel: req.body.drawParcel,
+          formData: req.body.formData,
+          screenshotData: req.body.screenshotData, // No need to convert to base64 here
         };
-
+      
         try {
-            await fenceCollection.insertOne(data);
-            res.send(data);
+          await fenceCollection.insertOne(data);
+          res.send(data);
         } catch (error) {
-            res.status(500).send(error);
+          res.status(500).send(error);
         }
     });
+      
 
     app.get('/api/data', async (req, res) => {
         const data = await fenceCollection.find().toArray();

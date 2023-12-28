@@ -7,6 +7,11 @@ import axios from "axios";
 const SubmitForm = () => {
   const drawingParcel = useSelector((state) => state.drawingParcel);
   const formData = useSelector((state) => state.formData);
+  const screenshotData = location.state ? location.state.screenshotData : "";
+
+  useEffect(() => {
+    console.log("Screenshot Data:", screenshotData);
+  }, [screenshotData]);
 
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -24,21 +29,47 @@ const SubmitForm = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
-  
-    const data = {
-      drawParcel: drawingParcel.data,
-      formData: formData.data,
-    };
+    event.preventDefault();
   
     try {
+      const base64Screenshot = await screenshotDataToBase64(screenshotData);
+  
+      const data = {
+        drawParcel: drawingParcel.data,
+        formData: formData.data,
+        screenshotData: base64Screenshot,
+      };
+  
       await axios.post("http://localhost:5000/api/data", data);
       alert("Data submitted successfully!");
-      navigate("/thanks"); 
+      navigate("/thanks");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
+  
+  
+  const screenshotDataToBase64 = (screenshotData) => {
+    return new Promise((resolve, reject) => {
+      try {
+        if (screenshotData instanceof Blob) {
+          // If screenshotData is already a Blob, convert it to base64
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result.split(",")[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(screenshotData);
+        } else if (typeof screenshotData === "string" && screenshotData.startsWith("data:image")) {
+          // If screenshotData is a data URL string, extract the base64 part
+          resolve(screenshotData.split(",")[1]);
+        } else {
+          // If screenshotData is a plain string, consider it as base64 directly
+          resolve(screenshotData);
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }; 
 
   useEffect(() => {
     console.log("Drawing Parcel:", drawingParcel);

@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setDrawingParcel } from "../../app/drawingParcelSlice.js";
 import CloseLogo from "../../img/close.png";
+import html2canvas from "html2canvas";
 
 const markerIcon = new L.Icon({
   iconUrl: MapIcon,
@@ -138,22 +139,44 @@ const Map = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmitData = (event) => {
-    event.preventDefault();
 
-    if (!polylineText) {
-      alert('Please draw a polyline');
-      return;
-    }
+const handleSubmitData = async (event) => {
+  event.preventDefault();
 
-    const drawingParcel = polylineText;
+  if (!polylineText) {
+    alert('Please draw a polyline');
+    return;
+  }
 
-    localStorage.setItem('drawingParcel', JSON.stringify(drawingParcel));
-    console.log("Draw Parcel:", drawingParcel);
+  try {
+    const capturedData = await captureScreenshot();
+    console.log("Type of capturedData:", capturedData); // Log the type
+    console.log("Draw Parcel:", polylineText);
 
-    dispatch(setDrawingParcel(drawingParcel));
-    navigate('/submit')
-  };
+    dispatch(setDrawingParcel(polylineText));
+    navigate('/submit', { screenshotData: capturedData });
+  } catch (error) {
+    console.error('Error capturing screenshot:', error);
+  }
+};
+const captureScreenshot = async () => {
+  const mapElement = document.getElementById("map-container");
+
+  if (!mapElement) {
+    console.error("Map element not found");
+    return "";
+  }
+
+  try {
+    const screenshot = await html2canvas(mapElement);
+    const screenshotData = screenshot.toDataURL("image/png");
+    console.log("Captured screenshot size:", screenshotData.length);
+    return screenshotData;
+  } catch (error) {
+    console.error("Error capturing screenshot:", error);
+    return "";
+  }
+};  
   
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -179,6 +202,7 @@ const Map = () => {
       <div className="col text-center">
         <div className="map-container col">
           <MapContainer
+            id="map-container" 
             className="map"
             center={center}
             zoom={ZOOM_LEVEL}

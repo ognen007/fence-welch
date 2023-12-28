@@ -19,8 +19,8 @@ const styles = {
     { value: "galvanized", label: "Galvanized Chain-link" },
   ],
   ornamental: [
-    { value: "black-vinyl", label: "Black Vinyl Chain-Link" },
-    { value: "galvanized", label: "Galvanized Chain-link" },
+    { value: "3-rail-flat-top", label: "3-Rail Flat-Top" },
+    { value: "3-Rail-spear-top", label: "3-Rail Spear Top" },
   ],
   vinyl: [
     { value: "privacy", label: "Privacy" },

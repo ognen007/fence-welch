@@ -34,27 +34,66 @@ const Home = ({ setLoggedIn }) => {
     localStorage.removeItem("isLoggedIn");
   };
 
+
   const downloadScreenshot = (screenshotData) => {
     const byteCharacters = atob(screenshotData);
     const byteNumbers = new Array(byteCharacters.length);
-
+  
     for (let i = 0; i < byteCharacters.length; i++) {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
-
+  
     const byteArray = new Uint8Array(byteNumbers);
     const blob = new Blob([byteArray], { type: "image/png" });
-
+  
     const url = URL.createObjectURL(blob);
-
+  
     const link = document.createElement("a");
     link.href = url;
     link.download = "screenshot.png";
     link.click();
-
-    // Release the object URL to free resources
+  
+    // Cleanup by revoking the object URL
     URL.revokeObjectURL(url);
   };
+  
+
+  // const downloadScreenshot = (screenshotData) => {
+  //   // const byteCharacters = atob(screenshotData);
+  //   // const byteNumbers = new Array(byteCharacters.length);
+
+  //   // for (let i = 0; i < byteCharacters.length; i++) {
+  //   //   byteNumbers[i] = byteCharacters.charCodeAt(i);
+  //   // }
+
+  //   // const byteArray = new Uint8Array(byteNumbers);
+  //   // const blob = new Blob([byteArray], { type: "image/png" });
+
+  //   // const url = URL.createObjectURL(blob);
+
+  //   // const link = document.createElement("a");
+  //   // link.href = screenshotData;
+  //   // link.download = "screenshot.png";
+  //   // link.click();
+
+  //   // console.log(screenshotData);
+
+  //     // Create a blob from the base64 data
+  //     const blob = new Blob([screenshotData], { type: "image/png" });
+    
+  //     // Create a URL for the blob
+  //     const url = URL.createObjectURL(blob);
+    
+  //     // Create a link and trigger a click to download
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.download = "screenshot.png";
+  //     link.click();
+    
+  //     // Cleanup by revoking the object URL
+  //     URL.revokeObjectURL(url);
+    
+  // };
 
   return (
     <div>

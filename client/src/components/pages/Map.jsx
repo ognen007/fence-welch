@@ -8,8 +8,9 @@ import useGeoLocation from "../../hooks/useGeoLocation.jsx";
 import MapIcon from "../../img/home.png";
 import HouseIcon from "../../img/home-house-silhouette-icon-building--public-domain-pictures--20.png";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDrawingParcel } from "../../app/drawingParcelSlice.js";
+import { setScreenshotData } from "../../app/screenshotSlice.js";
 import CloseLogo from "../../img/close.png";
 import html2canvas from "html2canvas";
 
@@ -140,43 +141,58 @@ const Map = () => {
   const dispatch = useDispatch();
 
 
-const handleSubmitData = async (event) => {
-  event.preventDefault();
+  const handleSubmitData = async (event) => {
+    event.preventDefault();
+  
+    if (!polylineText) {
+      alert('Please draw a polyline');
+      return;
+    }
 
-  if (!polylineText) {
-    alert('Please draw a polyline');
-    return;
-  }
+    try {
+      // Capture screenshot data
+      const capturedData = await captureScreenshot();
+      console.log("Type of SS capturedData:", typeof capturedData); // Log the type
+  
+      dispatch(setScreenshotData(capturedData)); // Dispatch the action
+  
+      dispatch(setDrawingParcel(polylineText));
+      navigate("/submit");
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  
+  const captureScreenshot = async () => {
+    const mapElement = document.getElementById("map-container-main");
+  
+    if (!mapElement) {
+      console.error("Map element not found");
+      return null;
+    }
+  
+    console.log("Before html2canvas");
+  
+    try {
+      const screenshot = await html2canvas(mapElement, {
+        useCORS: true,
+      });
+  
+      console.log("After html2canvas");
+  
+      const screenshotData = screenshot.toDataURL("image/png");
+      console.log("Captured screenshot size:", screenshotData.length);
+      console.log(screenshotData);
+  
+      return screenshotData;
+    } catch (error) {
+      console.error("Error capturing screenshot:", error);
+      return null;
+    }
+  };  
 
-  try {
-    const capturedData = await captureScreenshot();
-    console.log("Type of capturedData:", capturedData); // Log the type
-    console.log("Draw Parcel:", polylineText);
-
-    dispatch(setDrawingParcel(polylineText));
-    navigate('/submit', { screenshotData: capturedData });
-  } catch (error) {
-    console.error('Error capturing screenshot:', error);
-  }
-};
-const captureScreenshot = async () => {
-  const mapElement = document.getElementById("map-container");
-
-  if (!mapElement) {
-    console.error("Map element not found");
-    return "";
-  }
-
-  try {
-    const screenshot = await html2canvas(mapElement);
-    const screenshotData = screenshot.toDataURL("image/png");
-    console.log("Captured screenshot size:", screenshotData.length);
-    return screenshotData;
-  } catch (error) {
-    console.error("Error capturing screenshot:", error);
-    return "";
-  }
-};  
+  console.log("Redux State:", useSelector((state) => state));
+  
   
   useEffect(() => {
     const handleBeforeUnload = (event) => {
@@ -197,12 +213,11 @@ const captureScreenshot = async () => {
   
 
   return (
-    <div style={{background: "fff"}} className="map-div row">
+    <div id="map-container-main"  style={{background: "fff"}} className="map-div row">
       <img onClick={() => pushUser()} src={CloseLogo} alt="Close Logo" style={{position: 'absolute', top: 15, left: 15, width:"35px", cursor: "pointer"}}/>
       <div className="col text-center">
         <div className="map-container col">
           <MapContainer
-            id="map-container" 
             className="map"
             center={center}
             zoom={ZOOM_LEVEL}

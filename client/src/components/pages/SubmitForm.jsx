@@ -4,14 +4,13 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import pako from "pako"; 
+import { app, db } from "../../welchFenceConfig.js";
+import { addDoc, collection } from "firebase/firestore";
 
 const SubmitForm = () => {
   const drawingParcel = useSelector((state) => state.drawingParcel);
   const formData = useSelector((state) => state.formData);
   const screenshotData = useSelector((state) => state.screenshotData.data); 
-
-  // console.log(window.location.pathname);
 
   useEffect(() => {
     console.log("1Screenshot Data:", screenshotData);
@@ -34,62 +33,23 @@ const SubmitForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
-      // Convert formData to a JSON string
-      const formDataJson = JSON.stringify(formData.data);
+      const data = {
+        formData: formData.data,
+        drawingParcel: drawingParcel.data,
+        screenshotData: screenshotData,
+      };
+
+      // Submit data to Firebase
+      await addDoc(collection(db, 'submissions'), data);
   
-      // Create a Blob from the JSON string
-      const formDataBlob = new Blob([formDataJson], { type: 'application/json' });
-  
-      // Compress screenshot data using pako
-      const compressedScreenshotData = pako.gzip(screenshotData);
-  
-      const form = new FormData();
-      
-      // Append the drawingParcel data
-      form.append('drawParcel', drawingParcel.data);
-  
-      // Append the compressed screenshot data as a Blob with a custom content type
-      form.append('screenshotData', new Blob([compressedScreenshotData], { type: 'application/octet-stream' }));
-  
-      // Append the formData as a Blob with a custom content type
-      form.append('formData', formDataBlob);
-  
-      // Send the form data to the server
-      await axios.post("http://localhost:5000/api/data", form);
-      
       alert("Data submitted successfully!");
       navigate("/thanks");
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
-  
-   
-  
-  
-  // const screenshotDataToBase64 = (screenshotData) => {
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //       if (screenshotData instanceof Blob) {
-  //         // If screenshotData is already a Blob, convert it to base64
-  //         const reader = new FileReader();
-  //         reader.onloadend = () => resolve(reader.result.split(",")[1]);
-  //         reader.onerror = reject;
-  //         reader.readAsDataURL(screenshotData);
-  //       } else if (typeof screenshotData === "string" && screenshotData.startsWith("data:image")) {
-  //         // If screenshotData is a data URL string, extract the base64 part
-  //         resolve(screenshotData.split(",")[1]);
-  //       } else {
-  //         // If screenshotData is a plain string, consider it as base64 directly
-  //         resolve(screenshotData);
-  //       }
-  //     } catch (error) {
-  //       reject(error);
-  //     }
-  //   });
-  // }; 
 
   useEffect(() => {
     console.log("Drawing Parcel:", drawingParcel);
@@ -120,7 +80,6 @@ const SubmitForm = () => {
     }
     return dataItems;
   };
-  
 
   return (
     <div className="submitForm">

@@ -17,6 +17,7 @@ const Home = ({ setLoggedIn }) => {
     fetchData();
   }, []);
 
+
   const headerMapping = {
     selectedType: "Selected Type",
     selectedStyle: "Selected Style",
@@ -26,105 +27,58 @@ const Home = ({ setLoggedIn }) => {
     phoneNumber: "Phone Number",
     fullName: "Full Name",
     streetAddress: "Street Address",
-    downloadScreenshot: "Download Screenshot", // Added this line
   };
-
+  
   const handleLogout = () => {
     setLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
   };
 
-
   const downloadScreenshot = (screenshotData) => {
+    // Example: Trigger a download for the screenshot data
     const byteCharacters = atob(screenshotData);
     const byteNumbers = new Array(byteCharacters.length);
-  
+
     for (let i = 0; i < byteCharacters.length; i++) {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
-  
+
     const byteArray = new Uint8Array(byteNumbers);
     const blob = new Blob([byteArray], { type: "image/png" });
-  
+
     const url = URL.createObjectURL(blob);
-  
+
     const link = document.createElement("a");
     link.href = url;
     link.download = "screenshot.png";
     link.click();
-  
+
     // Cleanup by revoking the object URL
     URL.revokeObjectURL(url);
   };
-  
 
-  // const downloadScreenshot = (screenshotData) => {
-  //   // const byteCharacters = atob(screenshotData);
-  //   // const byteNumbers = new Array(byteCharacters.length);
-
-  //   // for (let i = 0; i < byteCharacters.length; i++) {
-  //   //   byteNumbers[i] = byteCharacters.charCodeAt(i);
-  //   // }
-
-  //   // const byteArray = new Uint8Array(byteNumbers);
-  //   // const blob = new Blob([byteArray], { type: "image/png" });
-
-  //   // const url = URL.createObjectURL(blob);
-
-  //   // const link = document.createElement("a");
-  //   // link.href = screenshotData;
-  //   // link.download = "screenshot.png";
-  //   // link.click();
-
-  //   // console.log(screenshotData);
-
-  //     // Create a blob from the base64 data
-  //     const blob = new Blob([screenshotData], { type: "image/png" });
-    
-  //     // Create a URL for the blob
-  //     const url = URL.createObjectURL(blob);
-    
-  //     // Create a link and trigger a click to download
-  //     const link = document.createElement("a");
-  //     link.href = url;
-  //     link.download = "screenshot.png";
-  //     link.click();
-    
-  //     // Cleanup by revoking the object URL
-  //     URL.revokeObjectURL(url);
-    
-  // };
 
   return (
     <div>
       <table className="data-table">
         <thead>
           <tr>
-            {data[0] &&
-              data[0].formData &&
-              Object.entries(data[0].formData).map(([key]) => {
-                if (key !== "value") {
-                  return <th key={key}>{headerMapping[key] || key}</th>;
-                }
-                return null;
-              })}
-            <th>{headerMapping.downloadScreenshot}</th> {/* Added this line */}
+            {Object.keys(headerMapping).map((key) => (
+              <th key={key}>{headerMapping[key]}</th>
+            ))}
+            <th>Download Screenshot</th>
           </tr>
         </thead>
         <tbody>
           {data.slice(0).reverse().map((item, index) => (
             <tr key={index}>
-              {item.formData &&
-                Object.entries(item.formData).map(([key, value]) => {
-                  if (key !== "value") {
-                    return (
-                      <td key={key}>
-                        {typeof value === "object" && value !== null ? value.label : value}
-                      </td>
-                    );
-                  }
-                  return null;
-                })}
+              {Object.keys(headerMapping).map((key) => (
+                <td key={key}>
+                  {typeof item[key] === "object" && item[key] !== null
+                    ? item[key].label
+                    : item[key]}
+                </td>
+              ))}
               <td>
                 <button onClick={() => downloadScreenshot(item.screenshotData)}>
                   Download Screenshot
@@ -134,7 +88,9 @@ const Home = ({ setLoggedIn }) => {
           ))}
         </tbody>
       </table>
-      <button className="logout-button" onClick={handleLogout}>Logout</button>
+      <button className="logout-button" onClick={handleLogout}>
+        Logout
+      </button>
     </div>
   );
 };

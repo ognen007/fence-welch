@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // MongoDB connection
-const uri = 'mongodb+srv://ognen:admin12345@cluster0.0p2buny.mongodb.net/?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://ognen:admin12345@cluster0.g1bvp5m.mongodb.net/?retryWrites=true&w=majority';
 
 MongoClient.connect(uri)
   .then(client => {
@@ -24,22 +24,22 @@ MongoClient.connect(uri)
         if (!req.body) {
           throw new Error('Request body is empty');
         }
-
+    
         console.log(req.body);
-
+    
         const data = {
-          drawParcel: req.body.drawParcel,
+          drawingParcel: req.body.drawingParcel,
           formData: req.body.formData,
-          screenshotData: req.body.screenshotData,
+          screenshotUrl: req.body.screenshotUrl,  // This is the URL of the screenshot in Firebase Storage
         };
-
+    
         await fenceCollection.insertOne(data);
         res.send(data);
       } catch (error) {
         console.error("Error submitting data:", error);
         res.status(500).send(error.message || 'Internal Server Error');
       }
-    });
+    });    
 
     app.get('/api/data', async (req, res) => {
       const data = await fenceCollection.find().toArray();

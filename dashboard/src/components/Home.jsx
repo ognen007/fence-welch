@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Home = ({ setLoggedIn }) => {
@@ -17,80 +17,71 @@ const Home = ({ setLoggedIn }) => {
     fetchData();
   }, []);
 
-
-  const headerMapping = {
-    selectedType: "Selected Type",
-    selectedStyle: "Selected Style",
-    selectHeight: "Selected Height",
-    selectColor: "Selected Color",
-    email: "E-Mail",
-    phoneNumber: "Phone Number",
-    fullName: "Full Name",
-    streetAddress: "Street Address",
-  };
-  
   const handleLogout = () => {
     setLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
   };
 
-  const downloadScreenshot = (screenshotData) => {
-    // Example: Trigger a download for the screenshot data
-    const byteCharacters = atob(screenshotData);
-    const byteNumbers = new Array(byteCharacters.length);
+  const downloadScreenshot = async (screenshotUrl) => {
+    try {
+      const response = await fetch(screenshotUrl);
+      const blob = await response.blob();
 
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
+      // Create a temporary link element
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.target = "_blank";
+      link.download = "screenshot.png"; // Set the desired file name
+
+      // Trigger the download
+      link.click();
+
+      // Remove the temporary link element
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Error downloading screenshot:", error);
     }
-
-    const byteArray = new Uint8Array(byteNumbers);
-    const blob = new Blob([byteArray], { type: "image/png" });
-
-    const url = URL.createObjectURL(blob);
-
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "screenshot.png";
-    link.click();
-
-    // Cleanup by revoking the object URL
-    URL.revokeObjectURL(url);
   };
-
 
   return (
     <div>
       <table className="data-table">
         <thead>
           <tr>
-            {Object.keys(headerMapping).map((key) => (
-              <th key={key}>{headerMapping[key]}</th>
-            ))}
+            <th>Draw Parcel</th>
+            <th>Selected Type</th>
+            <th>Selected Style</th>
+            <th>Selected Height</th>
+            <th>Selected Color</th>
+            <th>E-Mail</th>
+            <th>Phone Number</th>
+            <th>Full Name</th>
+            <th>Street Address</th>
             <th>Download Screenshot</th>
           </tr>
         </thead>
         <tbody>
           {data.slice(0).reverse().map((item, index) => (
             <tr key={index}>
-              {Object.keys(headerMapping).map((key) => (
-                <td key={key}>
-                  {typeof item[key] === "object" && item[key] !== null
-                    ? item[key].label
-                    : item[key]}
-                </td>
-              ))}
+              <td>{item.drawingParcel ? parseFloat(item.drawingParcel.split(":")[1]) : "N/A"}</td>
+              <td>{item.formData.selectedType?.label || "N/A"}</td>
+              <td>{item.formData.selectedStyle?.label || "N/A"}</td>
+              <td>{item.formData.selectHeight?.label || "N/A"}</td>
+              <td>{item.formData.selectColor?.label || "N/A"}</td>
+              <td>{item.formData.email || "N/A"}</td>
+              <td>{item.formData.phoneNumber || "N/A"}</td>
+              <td>{item.formData.fullName || "N/A"}</td>
+              <td>{item.formData.streetAddress || "N/A"}</td>
               <td>
-                <button onClick={() => downloadScreenshot(item.screenshotData)}>
-                  Download Screenshot
+                <button onClick={() => downloadScreenshot(item.screenshotUrl)}>
+                  Download
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button className="logout-button" onClick={handleLogout}>
-        Logout
-      </button>
+      <button className="logout-button" onClick={handleLogout}>Logout</button>
     </div>
   );
 };

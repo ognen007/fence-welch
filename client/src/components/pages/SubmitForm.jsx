@@ -9,7 +9,7 @@ import {imageDB} from "../../firebaseConfig"
 import { ref, uploadBytes } from "firebase/storage";
 import { getFirestore, addDoc, collection } from "firebase/firestore";
 import { v4 } from "uuid"
-
+import { getDownloadURL } from "firebase/storage";
 
 const SubmitForm = () => {
   const drawingParcel = useSelector((state) => state.drawingParcel);
@@ -36,8 +36,6 @@ const SubmitForm = () => {
   }, []);
 
   const sendData = async (mongoData, firebaseData) => {
-    await axios.post("http://localhost:5000/api/data", mongoData);
-
     const imgRef = await ref(imageDB, `mapScreenshots/${v4()}`);
 
     // Convert the base64 data to a Uint8Array before uploading
@@ -50,6 +48,17 @@ const SubmitForm = () => {
 
     await uploadBytes(imgRef, byteArray);
     
+    // Get the download URL of the uploaded image
+    const screenshotUrl = await getDownloadURL(imgRef);
+
+    // Include the screenshot URL in the data to send to the server
+    const dataToSend = {
+      ...mongoData,
+      screenshotUrl,  // This is the URL of the screenshot in Firebase Storage
+    };
+
+    await axios.post("http://localhost:5000/api/data", dataToSend);
+        
     console.log("ALERTTT\nDoc written in Firebase DB");
     console.log(mongoData, firebaseData);
     alert("Data submitted successfully!");

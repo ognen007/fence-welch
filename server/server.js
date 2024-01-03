@@ -11,59 +11,53 @@ const port = process.env.PORT || 5000;
 const uri = 'mongodb+srv://ognen:admin12345@cluster0.0p2buny.mongodb.net/?retryWrites=true&w=majority';
 
 MongoClient.connect(uri)
-    .then(client => {
-        console.log("Connected to the database");
-        const db = client.db("client-fences");
-        const fenceCollection = db.collection("fence-data");
+  .then(client => {
+    console.log("Connected to the database");
+    const db = client.db("client-fences");
+    const fenceCollection = db.collection("fence-data");
 
-        app.use(cors());
-        app.use(express.json());
+    app.use(cors());
+    app.use(express.json());
 
-        app.post('/api/data', async (req, res) => {
-            try {
-                if (!req.body) {
-                    throw new Error('Request body is empty');
-                }
+    app.post('/api/data', async (req, res) => {
+      try {
+        if (!req.body) {
+          throw new Error('Request body is empty');
+        }
 
-                console.log(req.body);
+        console.log(req.body);
 
-                const data = {
-                    drawParcel: req.body.drawParcel,
-                    formData: req.body.formData,
-                    screenshotData: req.body.screenshotData,
-                };
+        const data = {
+          drawParcel: req.body.drawParcel,
+          formData: req.body.formData,
+          screenshotData: req.body.screenshotData,
+        };
 
-                await fenceCollection.insertOne(data);
-                res.send(data);
-            } catch (error) {
-                console.error("Error submitting data:", error);
-                res.status(500).send(error.message || 'Internal Server Error');
-            }
-        });
+        await fenceCollection.insertOne(data);
+        res.send(data);
+      } catch (error) {
+        console.error("Error submitting data:", error);
+        res.status(500).send(error.message || 'Internal Server Error');
+      }
+    });
 
-        app.get('/api/data', async (req, res) => {
-            const data = await fenceCollection.find().toArray();
-            res.send(data);
-        });
+    app.get('/api/data', async (req, res) => {
+      const data = await fenceCollection.find().toArray();
+      res.send(data);
+    });
 
-        app.listen(port, () => console.log(`Server is running on port ${port}`));
-    })
-    .catch(error => console.error(error));
+    // app.get('/api/image', async (req, res) => {
+    //   try {
+    //     const imageRef = storage.bucket().file('screenshot.png'); // Replace with your actual image filename
+    //     const stream = imageRef.createReadStream();
+    //     stream.pipe(res);
+    //   } catch (error) {
+    //     console.error("Error fetching image:", error);
+    //     res.status(500).send(error.message || 'Internal Server Error');
+    //   }
+    // });
 
-// Firebase Cloud Function
-exports.sendDataToMongoDB = functions.firestore
-  .document('submissions/{submissionId}')
-  .onCreate(async (snapshot, context) => {
-    try {
-      const data = snapshot.data();
-
-      // Make an HTTP request to your deployed MongoDB server
-      await axios.post(uri, data);
-
-      return null;
-    } catch (error) {
-      console.error("Error sending data to MongoDB:", error);
-      return null;
-    }
-  });
-
+    app.listen(port, () => console.log(`Server is running on port ${port}`));
+  })
+  .catch(error => console.error(error));
+  

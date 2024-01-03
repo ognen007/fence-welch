@@ -1,16 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import { app, db } from "../../welchFenceConfig.js";
-import { addDoc, collection } from "firebase/firestore";
+import "../../firebaseConfig";
+import {imageDB} from "../../firebaseConfig"
+import { ref, uploadBytes } from "firebase/storage";
+import { getFirestore, addDoc, collection } from "firebase/firestore";
+import { v4 } from "uuid"
+
 
 const SubmitForm = () => {
   const drawingParcel = useSelector((state) => state.drawingParcel);
   const formData = useSelector((state) => state.formData);
   const screenshotData = useSelector((state) => state.screenshotData.data); 
+  const navigate = useNavigate();
+  const db = getFirestore();
 
   useEffect(() => {
     console.log("1Screenshot Data:", screenshotData);
@@ -29,23 +35,34 @@ const SubmitForm = () => {
     };
   }, []);
 
-  const navigate = useNavigate();
+  const sendData = async (mongoData, firebaseData) => {
+    await axios.post("http://localhost:5000/api/data", mongoData);
+    // const docRef = await addDoc(collection(db, "screenshots"), {
+    //   imageData : firebaseData
+    // });
+    const imgRef = await ref(imageDB, `mapScreenshots/${v4()}`)
+    await uploadBytes(imgRef, firebaseData)
+    console.log("ALERTTT\nDoc written in Firebase DB");
+    console.log(mongoData, firebaseData);
+    alert("Data submitted successfully!");
+    navigate("/thanks"); 
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("handleSubmit called");
+
+    const textData = {
+      formData: formData.data,
+      drawingParcel: drawingParcel.data,
+    };
+
+    console.log("FormData:", textData);
 
     try {
-      const data = {
-        formData: formData.data,
-        drawingParcel: drawingParcel.data,
-        screenshotData: screenshotData,
-      };
 
-      // Submit data to Firebase
-      await addDoc(collection(db, 'submissions'), data);
-  
-      alert("Data submitted successfully!");
-      navigate("/thanks");
+      console.log('Data submitted successfully, setting shouldNavigate to true');
+      await sendData(textData, screenshotData)
     } catch (error) {
       console.error("Error submitting data:", error);
     }

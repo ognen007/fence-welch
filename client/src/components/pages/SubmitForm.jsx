@@ -14,7 +14,7 @@ import { v4 } from "uuid"
 const SubmitForm = () => {
   const drawingParcel = useSelector((state) => state.drawingParcel);
   const formData = useSelector((state) => state.formData);
-  const screenshotData = useSelector((state) => state.screenshotData.data); 
+  const screenshotData = useSelector((state) => state.screenshotData.data); // Extract 'data'
   const navigate = useNavigate();
   const db = getFirestore();
 
@@ -37,15 +37,23 @@ const SubmitForm = () => {
 
   const sendData = async (mongoData, firebaseData) => {
     await axios.post("http://localhost:5000/api/data", mongoData);
-    // const docRef = await addDoc(collection(db, "screenshots"), {
-    //   imageData : firebaseData
-    // });
-    const imgRef = await ref(imageDB, `mapScreenshots/${v4()}`)
-    await uploadBytes(imgRef, firebaseData)
+
+    const imgRef = await ref(imageDB, `mapScreenshots/${v4()}`);
+
+    // Convert the base64 data to a Uint8Array before uploading
+    const byteCharacters = atob(firebaseData.split(',')[1]);
+    const byteNumbers = new Array(byteCharacters.length);
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    const byteArray = new Uint8Array(byteNumbers);
+
+    await uploadBytes(imgRef, byteArray);
+    
     console.log("ALERTTT\nDoc written in Firebase DB");
     console.log(mongoData, firebaseData);
     alert("Data submitted successfully!");
-    navigate("/thanks"); 
+    navigate("/thanks");
   }
 
   const handleSubmit = async (event) => {
@@ -60,13 +68,13 @@ const SubmitForm = () => {
     console.log("FormData:", textData);
 
     try {
-
       console.log('Data submitted successfully, setting shouldNavigate to true');
       await sendData(textData, screenshotData)
     } catch (error) {
       console.error("Error submitting data:", error);
     }
   };
+
 
   useEffect(() => {
     console.log("Drawing Parcel:", drawingParcel);

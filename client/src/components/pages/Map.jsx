@@ -180,7 +180,7 @@ const Map = () => {
   
       console.log("After html2canvas");
   
-      const screenshotData = screenshot.toDataURL("image/png");
+      const screenshotData = screenshot.toDataURL("image/webp");
       console.log("Captured screenshot size:", screenshotData.length);
       console.log(screenshotData);
   

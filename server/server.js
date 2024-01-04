@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // MongoDB connection
-const uri = 'mongodb+srv://ognen:admin12345@cluster0.g1bvp5m.mongodb.net/?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://ognen:admin12345@cluster0.pyf740q.mongodb.net/?retryWrites=true&w=majority';
 
 MongoClient.connect(uri)
   .then(client => {

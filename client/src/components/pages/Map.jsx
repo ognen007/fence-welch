@@ -270,6 +270,8 @@ const Map = () => {
           <div>
             <div className="input-row">
               <form onSubmit={handleSubmitData}>
+                <p
+                style={{color: "#302b63"}}><b>* Edit to correct lenght if needed</b></p>
                 <textarea
                   rows="5"
                   cols="50"

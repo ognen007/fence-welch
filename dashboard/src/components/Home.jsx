@@ -54,7 +54,7 @@ const Home = ({ setLoggedIn }) => {
             <th>Phone Number</th>
             <th>Full Name</th>
             <th>Street Address</th>
-            <th>Download Screenshot</th>
+            <th>Open Screenshot</th>
           </tr>
         </thead>
         <tbody>

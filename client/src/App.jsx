@@ -11,8 +11,12 @@ import ChainCarousel from "./components/pages/ChainCarousel"
 import VinylCarousel from "./components/pages/VinylCarousel"
 import OrnamentalCarousel from "./components/pages/OrnamentalCarousel"
 import Thanks from './components/pages/Thanks';
+import {Provider} from "react-redux"
+import store from "../src/app/store"
+
 const App = () => {
   return (
+    <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home2 />} />
@@ -27,6 +31,7 @@ const App = () => {
           <Route path="/submit" element={<SubmitForm />} />
         </Routes>
       </BrowserRouter>
+    </Provider>
   );
 };
 

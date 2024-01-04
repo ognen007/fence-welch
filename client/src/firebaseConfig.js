@@ -3,13 +3,13 @@ import {getStorage} from "firebase/storage"
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDna0jzZyuqv1MURhClJ-Js7yMCYz-JG6A",
-  authDomain: "top-notch-fence.firebaseapp.com",
-  projectId: "top-notch-fence",
-  storageBucket: "top-notch-fence.appspot.com",
-  messagingSenderId: "520163314179",
-  appId: "1:520163314179:web:f22da04aea649dd4091c36",
-  measurementId: "G-CS539XT1HF"
+  apiKey: "AIzaSyAGEke9tw5eVwkCf76SKw8hSAXrzdxzh6Q",
+  authDomain: "top-notch-robbie.firebaseapp.com",
+  projectId: "top-notch-robbie",
+  storageBucket: "top-notch-robbie.appspot.com",
+  messagingSenderId: "685368596243",
+  appId: "1:685368596243:web:092c02d0b98b8ed5dd6ce6",
+  measurementId: "G-27862L09Y3"
 };
 
 // Initialize Firebase

@@ -30,7 +30,7 @@ MongoClient.connect(uri)
         const data = {
           drawingParcel: req.body.drawingParcel,
           formData: req.body.formData,
-          screenshotUrl: req.body.screenshotUrl,  // This is the URL of the screenshot in Firebase Storage
+          screenshotUrl: req.body.screenshotUrl,
         };
     
         await fenceCollection.insertOne(data);
@@ -45,18 +45,6 @@ MongoClient.connect(uri)
       const data = await fenceCollection.find().toArray();
       res.send(data);
     });
-
-    // app.get('/api/image', async (req, res) => {
-    //   try {
-    //     const imageRef = storage.bucket().file('screenshot.png'); // Replace with your actual image filename
-    //     const stream = imageRef.createReadStream();
-    //     stream.pipe(res);
-    //   } catch (error) {
-    //     console.error("Error fetching image:", error);
-    //     res.status(500).send(error.message || 'Internal Server Error');
-    //   }
-    // });
-
     app.listen(port, () => console.log(`Server is running on port ${port}`));
   })
   .catch(error => console.error(error));

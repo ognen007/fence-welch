@@ -35,35 +35,38 @@ const SubmitForm = () => {
     };
   }, []);
 
-  const sendData = async (mongoData, firebaseData) => {
-    const imgRef = await ref(imageDB, `mapScreenshots/${v4()}`);
-
-    // Convert the base64 data to a Uint8Array before uploading
-    const byteCharacters = atob(firebaseData.split(',')[1]);
+  const sendData = async (mongoData, screenshotData) => {
+    const imgRef = ref(imageDB, `mapScreenshots/${v4()}.jpg`);
+  
+    // Convert base64 data to Blob
+    const byteCharacters = atob(screenshotData.split(',')[1]);
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
     const byteArray = new Uint8Array(byteNumbers);
-
-    await uploadBytes(imgRef, byteArray);
-    
+    const blob = new Blob([byteArray], {type: 'image/jpeg'});
+  
+    // Upload Blob to Firebase Storage
+    const snapshot = await uploadBytes(imgRef, blob);
+  
     // Get the download URL of the uploaded image
-    const screenshotUrl = await getDownloadURL(imgRef);
-
+    const screenshotUrl = await getDownloadURL(snapshot.ref);
+  
     // Include the screenshot URL in the data to send to the server
     const dataToSend = {
       ...mongoData,
       screenshotUrl,  // This is the URL of the screenshot in Firebase Storage
     };
-
+  
     await axios.post("http://localhost:5000/api/data", dataToSend);
-        
+  
     console.log("ALERTTT\nDoc written in Firebase DB");
-    console.log(mongoData, firebaseData);
+    console.log(mongoData, screenshotData);
     alert("Data submitted successfully!");
     navigate("/thanks");
   }
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -144,3 +147,12 @@ const SubmitForm = () => {
 };
 
 export default SubmitForm;
+
+
+// const downloadLink = document.createElement('a');
+// downloadLink.href = screenshotData;
+// downloadLink.download = "download.jpg"; // I WANT TO SEND THIS TO FIREBASE
+// document.body.appendChild(downloadLink);
+// screenshotData = downloadLink;
+// downloadLink.click();
+// document.body.removeChild(downloadLink);

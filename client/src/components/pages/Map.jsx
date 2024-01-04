@@ -157,6 +157,7 @@ const Map = () => {
       dispatch(setScreenshotData(capturedData)); // Dispatch the action
   
       dispatch(setDrawingParcel(polylineText));
+      
       navigate("/submit");
     } catch (e) {
       console.error(e);
@@ -179,8 +180,9 @@ const Map = () => {
       });
   
       console.log("After html2canvas");
-  
-      const screenshotData = screenshot.toDataURL("image/webp");
+      console.log(screenshot);
+
+      const screenshotData = screenshot.toDataURL("image/jpeg"|":?");
       console.log("Captured screenshot size:", screenshotData.length);
       console.log(screenshotData);
   
